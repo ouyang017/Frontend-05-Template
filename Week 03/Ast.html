@@ -1,0 +1,55 @@
+<script>
+    let regp = /([0-9\.]+)|([ /t]+)|([/r/n]+)|(\+)|(\-)|(\*)|(\/)/g;
+
+    let dictionary = ['Number','WhiteSpace','LineTermintor','+','-','*','/'];
+
+   // let reggroup = /(?<Number>[0-9\.]+)|(?<WhiteSpace>[ /t]+)|(?<LineTermintor>[/r/n]+)|(?<a>\+)|(?<b>\-)|(?<c>\*)|(?<d>\/)/g;
+
+    function* tokenise(source){
+        //let regptxt = regp.exec(source);
+        let result = null;
+        let lastIndex = 0;
+        
+        while(true){
+
+            lastIndex = regp.lastIndex;
+            result = regp.exec(source);
+           
+            if(!result){
+                break;
+            }
+            if(lastIndex - result.lastIndex > result[0].length){
+                break;
+            }
+
+            let token = {
+                type:null,
+                value:null
+            }
+
+            for (let i = 1; i < dictionary.length; i++) {
+
+                if(result[i]){
+                    const element = dictionary[i - 1];
+                    //console.log(element);
+                    token.type = element;
+                }
+                
+            }
+
+            token.value = result[0];
+
+            yield token;
+        }
+        yield {
+            type:"EOF"
+        }
+    }
+
+    for (const iterator of tokenise("3 + 2 * 3")) {
+        console.log(iterator);
+    }
+
+   //tokenise("3 + 2");
+
+</script>
