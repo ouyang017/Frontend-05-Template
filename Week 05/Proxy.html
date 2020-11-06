@@ -1,6 +1,8 @@
 <script>
 
-    let callbacks = [];
+    let callbacks = new Map();
+
+    let usesReactivties = [];
 
     let obj = {
         a: 1,
@@ -12,27 +14,54 @@
             console.log(obj,prop,val);
         }
     })*/
+    let po = reactive(obj);
+
 
     effect(()=>{
-        console.log(po.a,obj);
+        console.log(po.a);
     })
 
     function effect(callback) {
-        callbacks.push(callback);
+        //callbacks.push(callback);
+        usesReactivties = [];
+        callback();
+
+        console.log(usesReactivties);
+
+        for (const reactivty of usesReactivties) {
+            if(!callbacks.has(reactivty[0])){
+                callbacks.set(reactivty[0],new Map());
+            }
+            if(!callbacks.get(reactivty[0]).has(reactivty[1])){
+                callbacks.get(reactivty[0]).set(reactivty[1],[]);
+            }
+            if(callbacks.get(reactivty[0]).has(reactivty[1])){
+                callbacks.get(reactivty[0]).get(reactivty[1]).push(callback);
+            }    
+        }
+        
     }
 
-    let po = reactive(obj);
+    
 
     function reactive(param) {
         return new Proxy(param,{
             set:(obj,prop,val)=>{
                 obj[prop] = val;
-                for (const callback of callbacks) {
-                    callback();
+                //for (const callback of callbacks) {
+                //    callback();
+                //}
+               
+                if(callbacks.get(obj).has(prop)){
+                    for (const callback of callbacks.get(obj).get(prop)) {
+                        callback();
+                    }
                 }
+                    
                 return obj[prop];
             },
             get:(obj,prop)=>{
+                usesReactivties.push([obj,prop]);
                 return obj[prop];
             }
         })
