@@ -1,4 +1,14 @@
-<div id="dragable" style="width: 100px;height: 100px;background-color: pink;"></div>
+<div id="container">
+    “人欠了6个亿债后，还有没有必要活下去？”罗永浩给出了他的答案。
+
+    9月23日，“老一辈人民艺术家”罗永浩先生终于完成了他的脱口秀首秀。在综艺节目《脱口秀大会》上，老罗高调宣布，自己所欠的6亿债务已经还了4亿，剩下的预计一年内还清。
+    
+    相关言论一出，立马上了微博热搜。有网友表示支持，“敢于承担责任，老罗是条汉子”；也有网友质疑称，“凭带货半年挣4亿？老罗又在忽悠了”。
+    
+    对此，被老罗坑过的经销商曾留下这么一段话，“作为商人，看着老赖混的风生水起心里不是滋味；但作为维权者，我又希望他快点把钱还上。”
+</div>
+
+<div id="dragable" style="width: 100px;height: 100px;background-color: pink;display: inline-block"></div>
 <script>
     let dragable = document.getElementById("dragable");
 
@@ -16,12 +26,41 @@
         };
         let move = (event) =>{
           //  console.log(event);
-           dragable.style.transform = `translate(${baseX + event.clientX - startX}px,${baseY + event.clientY - startY}px)`;
+          let range = getNearest(event.clientX,event.clientY);
+          range.insertNode(dragable);
+          // dragable.style.transform = `translate(${baseX + event.clientX - startX}px,${baseY + event.clientY - startY}px)`;
         }
 
         dragable.addEventListener("mousemove",move);
         dragable.addEventListener("mouseup",up);
     });
 
-    
+    let container = document.getElementById("container");
+
+    let renges = [];
+
+    for(let i=0;i<container.childNodes[0].textContent.length;i++){
+        let renge = document.createRange();
+        renge.setStart(container.childNodes[0],i);
+        renge.setEnd(container.childNodes[0],i);
+        console.log(renge.getBoundingClientRect());
+        renges.push(renge);
+    }
+
+    function getNearest(x,y){
+        let min = Infinity;
+        let nearest = null;
+
+        for(let range of renges){
+            let ract = range.getBoundingClientRect();
+            let distance = (ract.x - x)**2 + (ract.y - y)**2;
+            if(distance < min){
+                nearest = range;
+                min = distance;
+            }
+        }
+        return nearest;
+    }
+
+    document.addEventListener("selectstart",event => {event.preventDefault()});
 </script>
