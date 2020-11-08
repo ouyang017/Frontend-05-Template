@@ -2,13 +2,21 @@
 <script>
     let dragable = document.getElementById("dragable");
 
+    let baseX = 0,baseY = 0;
+
     dragable.addEventListener("mousedown",event => {
-        let up = () =>{
+        let startX = event.clientX, startY = event.clientY;
+
+        let up = (event) =>{
+            baseX = baseX + event.clientX - startX;
+            baseY = baseY + event.clientY - startY;
+
             dragable.removeEventListener("mousemove",move);
             dragable.removeEventListener("mouseup",up);
         };
         let move = (event) =>{
-            console.log(event);
+          //  console.log(event);
+           dragable.style.transform = `translate(${baseX + event.clientX - startX}px,${baseY + event.clientY - startY}px)`;
         }
 
         dragable.addEventListener("mousemove",move);
