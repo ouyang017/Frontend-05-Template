@@ -1,0 +1,18 @@
+<Expression> ::= 
+    <AdditiveExpression><EOF>
+
+<AdditiveExpression> ::= 
+    <MultiplicativeExpression>
+    |<AdditiveExpression><+><MultiplicativeExpression>
+    |<AdditiveExpression><-><MultiplicativeExpression>
+	
+<MultiplicativeExpression> ::= 
+    <Number>
+    |<MultiplicativeExpression><*><Number>
+    |<MultiplicativeExpression></><Number>
+    |<(><AdditiveExpression><)>
+
+分析过程：
+1、()括号，不是一个表达式，而是一个操作终结符（像+ — * \ ）；所以不能用Expression。
+2、()括号也是最小颗粒度的计算单元，应与MultiplicativeExpression 里。
+3、MultiplicativeExpression 里包括AdditiveExpression 会不会出现死循环？
