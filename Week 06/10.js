@@ -15,4 +15,4 @@ class Dog{
     }
 }
 
-Person.hurt(new Dog("wangcai"));
+new Person("张三").hurt(new Dog("wangcai"));

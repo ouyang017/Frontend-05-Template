@@ -1,0 +1,2 @@
+找出JavaScript 标准里面所有具有特殊行为的对象
+Array.length
