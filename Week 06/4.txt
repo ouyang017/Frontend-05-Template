@@ -1,0 +1,4 @@
+练习：尽可能寻找你知道的计算机语言，尝试把它们分类
+自己用的有
+声明式： HTML、JSON、CSS、SQL、XML、XSL
+命令式：C、C#、JAVA、PYTHON、GO
