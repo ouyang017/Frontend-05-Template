@@ -89,6 +89,7 @@ class ResponseParser{
     }
 
     receive(string){
+        console.log(string);
         for (let i = 0; i < string.length; i++) {
             this.receiveChar(string.charAt(i));
         }
@@ -119,7 +120,7 @@ class ResponseParser{
                 this.current = this.WAITING_HEADER_VALUE;
             }
         }else if(this.current === this.WAITING_HEADER_VALUE){
-            if(char === '\n'){
+            if(char === '\r'){
                 this.current = this.WAITING_HEADER_LINE_END;
                 this.headers[this.headerName] = this.headerValue;
                 this.headerName = "";
