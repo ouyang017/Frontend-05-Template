@@ -209,5 +209,5 @@ void async function(){
 
     let dom = parser.parseHTML(response.body);
 
-    //console.log(response.body);
+    console.log(dom);
 }();
