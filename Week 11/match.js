@@ -22,10 +22,48 @@
 // }
 // return false;
 
+
+
 function match(selector, element) {
-    let _selectors = selector.split(" ");
+    let _selectors = selector.split(" ").reverse();
     console.log(_selectors);
-    return true;
+
+    let matched = false;
+        
+    var j = 1;
+    for (let i = 0; i < _selectors.length; i++) {
+
+        if(i!= 0){
+            element = element.parentElement;
+        }
+
+        if(elematch(element,_selectors[i])){
+            j++;
+        }
+    }
+
+    if(j >= _selectors.length)
+        matched = true;
+    return matched;
+}
+
+function elematch(element,selector) {
+    if(!element || !element.attributes || !selector)
+    return false;
+
+    if(selector.charAt(0) == "#"){
+        var attr = element.attributes.filter(attr => attr.name === "id")[0];
+        if(attr && attr.value === selector.replace("#",''))
+            return true;
+    }else if(selector.charAt(0) == "."){
+        var attr = element.attributes.filter(attr => attr.name === "class")[0];
+        if(attr && attr.value === selector.replace(".",''))
+            return true;
+    }else{
+        if(element.tagName === selector)
+            return true;
+    }
+    return false;
 }
 
 
