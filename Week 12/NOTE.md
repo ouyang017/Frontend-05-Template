@@ -58,7 +58,56 @@ float,margin,BFC 现象 叠加问题。
 BFC 合并
 Block
 Block Container：
+block,inline-block,table-cell,flex item,grid cell,table-caption
+
 Block-level Box：
+display: block,flex,table,grid  [run-in]
+
 Block Box = Block Container + Block-level Box;
 
+设定 BFC合并
+block box && overflow:visible
 
+Flex 排版
+1、收集盒进行
+2、计算盒在主轴方向的排布
+3、计算盒在交叉轴方向的排布
+
+no-wrap 不换行
+
+动画与绘制
+Animation
+animation-name 时间曲线
+animation-duration 动画的时长
+animation-timing-function 动画的时间曲线
+animation-delay 动画开始前的延迟
+animation-iteration-count 动画的播放次数
+animation-direction 动画的方向
+
+Transiton
+transition-property 要变换的属性
+transition-duration 变换的时间
+transition-timing-function 时间曲线
+transttion-delay 延迟
+
+由塞尔曲线【三次】
+http://cubic-bezier.com
+cubic-bezier(.08,.98,.75,1.01)
+
+颜色
+CMYK（印刷） 与 RGB（显示）
+
+HSL 与 HSV 
+H ：色相，S ：纯度，L 亮度， V 明度 
+
+绘制
+几何图形
+border,box-shadow,border-radius
+
+文字
+font,text-decoration
+
+位图
+background-image
+
+data uri + svg 
