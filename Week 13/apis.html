@@ -26,7 +26,7 @@
 
     names = names.filter( e => !e.match(/^on/))
 
-    names = names.filter( e => !e.match(/^webkit/))
+    names = names.filter( e => !e.match(/^webkit/i))
 
 
     //https://html.spec.whatwg.org/#window
@@ -87,6 +87,18 @@
 
     names = filterOut(names, ["SyncManager"]);
 
+    //添增API
+    //https://xhr.spec.whatwg.org/#interface-xmlhttprequest
+    names = filterOut(names,["XMLHttpRequest","FormData","ProgressEvent","XMLHttpRequestEventTarget","XMLHttpRequestUpload"]);
+    
+    //https://www.w3.org/TR/DOM-Level-3-XPath/xpath.html
+    names = filterOut(names,["XPathException","XPathExceptionCode","XPathEvaluator","XPathExpression","XPathNSResolver","XPathResult","XPathNamespace"]);
+    
+    //https://www.w3.org/TR/DOM-Parsing/
+    names = filterOut(names,["DOMParser","XMLSerializer","Element","Range"]);
 
     console.log(names.length);
+    for (const name of names) {
+        console.log(name);
+    }
 </script>
