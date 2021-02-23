@@ -36,7 +36,7 @@ function getToken(code,callback) {
 
 //4. publish路由： 用token获取用户信息，检查权限，接受发布
 function publish(request,response) {
-    let query = querystring.parse(request.url.match(/^\/auth\?([\s\S]+)$/)[1]);
+    let query = querystring.parse(request.url.match(/^\/publish\?([\s\S]+)$/)[1]);
     getUser(query.token,info => {
         if(info.login === "ouyang017"){
           request.pipe(unzipper.Extract({ path: '../server/public/' }));
@@ -55,7 +55,7 @@ function getUser(token,callback) {
         method: "GET",
         headers:{
             Authorization: `token ${token}`,
-
+            "User-Agent":'oyc-publish'
         }
     },function(response) {
         let body = "";
